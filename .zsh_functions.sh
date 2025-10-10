@@ -55,3 +55,18 @@ pr() {
     open "$repo_url/pull/new/$branch"
 }
 
+amepush() {
+    printf "[fast amend push] ✏️  Actualizando último commit sin cambiar su mensaje...\n"
+    git commit --amend --no-edit || {
+        printf "[fast amend push] ❌ Error al intentar hacer git commit --amend --no-edit\n"
+        return 1
+    }
+
+    printf "[fast amend push] 🚀 Haciendo push force al remoto...\n"
+    git push origin HEAD -f || {
+        printf "[fast amend push] ❌ Error al hacer push force.\n"
+        return 1
+    }
+
+    printf "[fast amend push] ✅ Commit actualizado y pusheado correctamente.\n"
+}
